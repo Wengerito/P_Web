@@ -2,11 +2,53 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}KingBook{% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css  ">
+        <link rel="stylesheet" type="text/css" href="style.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">KingBook</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>                 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item">                   
+                    {% if app.request.get('_route') == 'king_book' %}
+                        <a href="{{ path('king_book') }}" class="nav-link active">Accueil <span class="sr-only">(current)</span></a>
+                    {% else %}
+                        <a href="{{ path('king_book') }}" class="nav-link">Accueil <span class="sr-only">(current)</span></a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">                    
+                    {% if app.request.get('_route') == 'books' %}
+                        <a href="{{ path('books') }}" class="nav-link active">Ouvrages <span class="sr-only">(current)</span></a>
+                    {% else %}
+                        <a href="{{ path('books') }}" class="nav-link">Ouvrages <span class="sr-only">(current)</span></a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">                   
+                    {% if app.request.get('_route') == 'contact' %}
+                        <a href="{{ path('contact') }}" class="nav-link active">Contact <span class="sr-only">(current)</span></a>
+                    {% else %}
+                        <a href="{{ path('contact') }}" class="nav-link">Contact <span class="sr-only">(current)</span></a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">                   
+                    {% if app.request.get('_route') == 'login' %}
+                        <a href="{{ path('login') }}" class="nav-link active">Connexion <span class="sr-only">(current)</span></a>
+                    {% else %}
+                        <a href="{{ path('login') }}" class="nav-link">Connexion <span class="sr-only">(current)</span></a>
+                    {% endif %}
+                </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
