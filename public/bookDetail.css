@@ -1,0 +1,28 @@
+.detailText {
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.2px;
+    word-spacing: 1.8px;
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: uppercase;
+    display:inline;
+    }
+.detailInfo{
+    font-family: Impact, Charcoal, sans-serif;
+font-size: 20px;
+letter-spacing: -0.2px;
+word-spacing: 1.8px;
+color: #000000;
+font-weight: normal;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;
+position: absolute;
+left:20%;
+}
+
