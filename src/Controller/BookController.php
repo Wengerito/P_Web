@@ -55,22 +55,10 @@ class BookController extends AbstractController
             );
         }
 
-        /*return new Response(
-            'Titre: ' . $book->getTitle() . '<br>' .
-            'Auteur: ' . $book->getAuthor() . '<br>' .
-            'Catégorie: ' . $book->getCategory() . '<br>' .
-            'Année: ' . $book->getYear() . '<br>' .
-            'Editeur: ' . $book->getEditor() . '<br>' .
-            'Résumé: ' . $book->getAbstract() . '<br>' .
-            'Extrait: ' . $book->getExtract() . '<br>' .
-            'Nombre de pages: ' . $book->getNumberOfPages() . '<br>' .
-            'Score: ' . $book->getScore() . '<br>' .
-            'Couverture: ' . $book->getCoverImage() . '<br>' 
-        );*/
-
-        return $this->render('book/show.html.twig',['book' => $book]);
+        return $this->render('king_book/show.html.twig',['book' => $book]);
         // or render a template
         // in the template, print things with {{ product.name }}
         // return $this->render('product/show.html.twig', ['product' => $product]);
-    }
+    }   
+    
 }

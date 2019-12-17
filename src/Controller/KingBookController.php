@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Book;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class KingBookController extends AbstractController
 {
@@ -42,8 +44,24 @@ class KingBookController extends AbstractController
      * 
      * Affiche la page de connexion
      */
-    public function login()
+    public function login(AuthenticationUtils $authenticationUtils)
     {
-        return $this->render('king_book/login.html.twig');
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('king_book/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
+
+    /**
+     * @Route("/", name="king_book")
+     */
+    public function showLastBooks()
+    {
+        $books = $this->getDoctrine()->getRepository(Book::class)->findBy(array(), array('id' => 'desc'), 6, 0);
+                
+        return $this->render('king_book/index.html.twig',['book' => $books]);
+                      
+    } 
 }

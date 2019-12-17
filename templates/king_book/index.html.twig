@@ -1,0 +1,27 @@
+{# Affichage de la page Accueil #}
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="row mb-4">
+        <h1>Bienvenu sur KingBook</h1>
+    </div>
+    <div class="row mb-4">
+        <h2>Dernière publications</h2>
+    </div>
+    <div class="row text-center mb-4"> 
+        {% for book in book %}
+            <div class="col-4 img">
+            {% if app.user %}
+                <a href="/book/{{book.id}}" style="text-decoration: none"/>
+            {% endif %}
+                <img src="http://placehold.it/150x275" alt="..." class="img-thumbnail image">
+                <div class="middle">
+                    <div class="text">{{book.title}}</div>	                          
+                </div>            
+            </div>
+        {% endfor %}                     
+    </div>       
+
+
+{% endblock %}

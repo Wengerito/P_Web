@@ -52,7 +52,7 @@ class AddBookController extends AbstractController
         return $this->redirectToRoute('book_show',['id' => $book->getId()]);
     }
 
-            return $this->render('book/new.html.twig', [
+            return $this->render('king_book/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
