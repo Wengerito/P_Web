@@ -71,7 +71,7 @@ class KingBookController extends AbstractController
     public function showAllBooks()
     {
         $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
-                
-        return $this->render('king_book/books.html.twig',['book' => $books]);
+        $category = $this->getDoctrine()->getRepository(Book::class)->findBy(array('category'), array(array('distinct' => TRUE)));       
+        return $this->render('king_book/books.html.twig',['book' => $books,'category' => $category]);
     }
 }
