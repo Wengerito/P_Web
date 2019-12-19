@@ -7,5 +7,14 @@
     <h1>Ouvrages</h1>
 
     <p>Paragraphe</p>
+    <select>
+    {% for book in book|reduce((unique, item) => item in unique ? unique : unique|merge([item]), []) %}
+     <option>{{book.category}}</option>
+{% endfor %}
+    
+    </select>
+    {% for book in book %}
+    <div class="text">{{book.title}}</div>
+    {% endfor %}
 
 {% endblock %}

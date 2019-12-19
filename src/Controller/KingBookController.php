@@ -64,4 +64,14 @@ class KingBookController extends AbstractController
         return $this->render('king_book/index.html.twig',['book' => $books]);
                       
     } 
+
+    /**
+     * @Route("/books", name="books")
+     */
+    public function showAllBooks()
+    {
+        $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
+                
+        return $this->render('king_book/books.html.twig',['book' => $books]);
+    }
 }
