@@ -15,7 +15,7 @@
             {% if app.user %}
                 <a href="/book/{{book.id}}" style="text-decoration: none"/>
             {% endif %}
-                <img src="http://placehold.it/150x275" alt="..." class="img-thumbnail image">
+                <img src="{{book.coverImage}}" alt="{{book.title}}" class="img-thumbnail image" style="height:450px">
                 <div class="middle">
                     <div class="text">{{book.title}}</div>	                          
                 </div>            

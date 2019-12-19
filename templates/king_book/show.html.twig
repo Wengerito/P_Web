@@ -1,18 +1,17 @@
 {% extends "base.html.twig" %}
 {% block body %}
-<link href="{{ asset('bookDetail.css') }}" rel="stylesheet" />
 <div class="back">
-<h1>Détails du livre</h1>
-<div><p class="detailText">Titre :  </p><span class="detailInfo">{{book.title}}</span></div>
-<div><p class="detailText">Auteur :  </p><span class="detailInfo">{{book.author}}</span></div>
-<div><p class="detailText">Catégorie :  </p><span class="detailInfo">{{book.category}}</span></div>
-<div><p class="detailText">Année :  </p><span class="detailInfo">{{book.year}}</span></div>
-<div><p class="detailText">Éditeur :  </p><span class="detailInfo">{{book.editor}}</span></div>
-<div><p class="detailText">Résumé :  </p><span class="detailInfo">{{book.abstract}}</span></div>
-<div><p class="detailText">Extrait :  </p><span class="detailInfo">{{book.extract}}</span></div>
-<div><p class="detailText">Nombre de pages :  </p><span class="detailInfo">{{book.numberOfPages}}</span></div>
-<div><p class="detailText">Score :  </p><span class="detailInfo">{{book.score}}</span></div>
-<div><p class="detailText">Image de couverture :  </p><span class="detailInfo">{{book.coverImage}}</span></div>
+    <h1>Détails du livre</h1>
+    <div><img src="{{book.coverImage}}" alt="{{book.title}}" class="img-thumbnail image" style="height: 200px" ></div>
+    <div><p class="detailText">Titre : {{book.title}}</p></div>
+    <div><p class="detailText">Auteur : {{book.author}}</p></div>
+    <div><p class="detailText">Catégorie : {{book.category}}</p></div>
+    <div><p class="detailText">Année : {{book.year}}</p></div>
+    <div><p class="detailText">Éditeur : {{book.editor}}</p></div>
+    <div><p class="detailText">Résumé : {{book.abstract}}</p></div>
+    <div><p class="detailText">Extrait : {{book.extract}}</p></div>
+    <div><p class="detailText">Nombre de pages : {{book.numberOfPages}}</p></div>
+    <div><p class="detailText">Score : {{book.score}}</p></div>
 </div>
 <input type="button" value="Modifier" href="/construction" id="button_building"/>
 {% endblock %}
