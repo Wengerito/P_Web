@@ -17,23 +17,25 @@
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item">                   
                     {% if app.request.get('_route') == 'king_book' %}
-                        <a href="{{ path('king_book') }}" class="nav-link active">Accueil <span class="sr-only">(current)</span></a>
+                        <a href="{{ path('king_book') }}" class="nav-link active">Accueil<span class="sr-only">(current)</span></a>
                     {% else %}
-                        <a href="{{ path('king_book') }}" class="nav-link">Accueil <span class="sr-only">(current)</span></a>
+                        <a href="{{ path('king_book') }}" class="nav-link">Accueil<span class="sr-only">(current)</span></a>
                     {% endif %}
                 </li>
                 <li class="nav-item">                    
                     {% if app.request.get('_route') == 'books' %}
-                        <a href="{{ path('books') }}" class="nav-link active">Ouvrages <span class="sr-only">(current)</span></a>
+                        <a href="{{ path('books') }}" class="nav-link active">Ouvrages<span class="sr-only">(current)</span></a>
                     {% else %}
-                        <a href="{{ path('books') }}" class="nav-link">Ouvrages <span class="sr-only">(current)</span></a>
+                        <a href="{{ path('books') }}" class="nav-link">Ouvrages<span class="sr-only">(current)</span></a>
                     {% endif %}
                 </li>
-                <li class="nav-item">                   
-                    {% if app.request.get('_route') == 'contact' %}
-                        <a href="{{ path('contact') }}" class="nav-link active">Contact <span class="sr-only">(current)</span></a>
-                    {% else %}
-                        <a href="{{ path('contact') }}" class="nav-link">Contact <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    {% if app.user %}
+                        {% if app.request.get('_route') == 'Form' %}
+                            <a href="{{ path('Form') }}" class="nav-link active">Ajouter livre<span class="sr-only">(current)</span></a>
+                        {% else %}
+                            <a href="{{ path('Form') }}" class="nav-link">Ajouter livre<span class="sr-only">(current)</span></a>
+                        {% endif %}
                     {% endif %}
                 </li>
                 <li class="nav-item">
@@ -41,9 +43,9 @@
                     <a href="{{ path('logout') }}" class="nav-link">Se déconnecter</a>
                 {% else %}
                     {% if app.request.get('_route') == 'login' %}
-                        <a href="{{ path('login') }}" class="nav-link active">Connexion <span class="sr-only">(current)</span></a>
+                        <a href="{{ path('login') }}" class="nav-link active">Connexion<span class="sr-only">(current)</span></a>
                     {% else %}
-                        <a href="{{ path('login') }}" class="nav-link">Connexion <span class="sr-only">(current)</span></a>
+                        <a href="{{ path('login') }}" class="nav-link">Connexion<span class="sr-only">(current)</span></a>
                     {% endif %}
                 {% endif %}
                 </li>

@@ -30,13 +30,13 @@ class KingBookController extends AbstractController
     }
 
     /**
-     * @Route ("/contact", name="contact")
+     * @Route ("/Form", name="Form")
      * 
      * Affiche la page contact
      */
-    public function contact()
+    public function addBook()
     {
-        return $this->render('king_book/contact.html.twig');
+        return $this->render('king_book/new.html.twig');
     }
 
     /**
