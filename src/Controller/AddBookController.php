@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -24,16 +26,16 @@ class AddBookController extends AbstractController
         $book = new Book();
 
         $form = $this->createFormBuilder($book)
-            ->add('title', TextType::class)
-            ->add('category', TextType::class)
-            ->add('numberOfPages', IntegerType::class)
-            ->add('extract', TextType::class)
-            ->add('abstract', TextType::class)
-            ->add('author', TextType::class)
-            ->add('editor', TextType::class)
-            ->add('year', IntegerType::class)
-            ->add('score', NumberType::class)
-            ->add('coverImage', TextType::class)
+            ->add('title', TextType::class, ['label' => 'Titre'])
+            ->add('category', TextType::class, ['label' => 'Catégorie'])
+            ->add('numberOfPages', NumberType::class, ['label' => 'Nombre de page'])
+            ->add('extract', TextareaType::class, ['label' => 'Extrait'])
+            ->add('abstract', TextareaType::class, ['label' => 'Résumé'])
+            ->add('author', TextType::class, ['label' => 'Auteur'])
+            ->add('editor', TextType::class, ['label' => 'Éditeur'])
+            ->add('year', NumberType::class, ['label' => 'Année'])
+            ->add('score', NumberType::class, ['label' => 'Score'])
+            ->add('coverImage', UrlType::class, ['label' => 'Couverture'])
             ->add('save', SubmitType::class, ['label' => 'Create Book'])
             ->getForm();
 
