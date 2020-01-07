@@ -10,17 +10,17 @@
     
 
     <select class="form-control" id="selCategory">
-    {% for category in category %}
-    <option value="{{category.category}}">{{category.category}}</option>
+    {% for category in categories %}
+    <option value="{{category.name}}">{{category.name}}</option>
     {% endfor %}
     </select>
-    
-    {% for book in book %}
-    {% if (selCategory==book.category) %}
-    <div class="text">{{book.title}}</div>
-    {% endif %}
-    {% endfor %}
-<script type="text/javascript">
+    {% block javascripts %}
+    <script type="text/javascript">
     var selCategory = document.getElementById("selCategory");
     </script>
+    {% endblock %}
+    {% for book in books %}
+    <div class="text">{{book.title}}</div>
+    {% endfor %}
+
 {% endblock %}

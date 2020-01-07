@@ -2,9 +2,18 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Book;
+use Proxies\__CG__\App\Entity\Category;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class KingBookController extends AbstractController
@@ -19,24 +28,69 @@ class KingBookController extends AbstractController
         ]);
     }
 
+    
+
     /**
-     * @Route ("/books", name="books")
-     * 
-     * Affiche la page des ouvrages
+     * @Route("/book/{id}", name="book_show")
      */
-    public function books()
+    public function show($id)
     {
-        return $this->render('king_book/books.html.twig');
+        $book = $this->getDoctrine()
+            ->getRepository(Book::class)
+            ->find($id);
+
+        if (!$book) {
+            throw $this->createNotFoundException(
+                'No book found for id ' . $id
+            );
+        }
+
+        return $this->render('king_book/show.html.twig',['book' => $book]);
     }
 
     /**
-     * @Route ("/Form", name="Form")
-     * 
-     * Affiche la page contact
+     * @Route("/form", name="book_form")
      */
-    public function addBook()
+    public function new(Request $request)
     {
-        return $this->render('king_book/new.html.twig');
+        // creates a book object
+        $book = new Book();
+
+        $form = $this->createFormBuilder($book)
+            ->add('title', TextType::class, ['label' => 'Titre'])
+            ->add('category', EntityType::class, ['class'=>Category::class,'choice_label' => function ($category) {
+                return $category->getName();
+            },'label' => 'Catégorie'])
+            ->add('numberOfPages', NumberType::class, ['label' => 'Nombre de page'])
+            ->add('extract', TextareaType::class, ['label' => 'Extrait'])
+            ->add('abstract', TextareaType::class, ['label' => 'Résumé'])
+            ->add('author', TextType::class, ['label' => 'Auteur'])
+            ->add('editor', TextType::class, ['label' => 'Éditeur'])
+            ->add('year', NumberType::class, ['label' => 'Année'])
+            ->add('score', NumberType::class, ['label' => 'Score'])
+            ->add('coverImage', UrlType::class, ['label' => 'Couverture'])
+            ->add('save', SubmitType::class, ['label' => 'Create Book'])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        // $form->getData() holds the submitted values
+        // but, the original `$task` variable has also been updated
+            $book = $form->getData();
+            $book->setUser($this->getUser());
+
+        // ... perform some action, such as saving the task to the database
+        // for example, if Task is a Doctrine entity, save it!
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($book);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('book_show', ['id' => $book->getId()]);
+        }
+
+        return $this->render('king_book/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -71,7 +125,7 @@ class KingBookController extends AbstractController
     public function showAllBooks()
     {
         $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
-        $category = $this->getDoctrine()->getRepository(Book::class)->findCategories();       
-        return $this->render('king_book/books.html.twig',['book' => $books,'category' => $category]);
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();       
+        return $this->render('king_book/books.html.twig',['books' => $books,'categories' => $categories]);
     }
 }

@@ -19,18 +19,7 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-    /**
-    * @return array Returns an array of Book category
-    */
-    public function findCategories()
-    {
-        return $this->createQueryBuilder('b')
-            ->select('b.category')
-            ->distinct(true)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    
     
 
     /*

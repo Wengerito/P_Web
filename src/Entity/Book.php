@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Proxies\__CG__\App\Entity\Category;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
@@ -21,10 +24,7 @@ class Book
      */
     private $title;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $category;
+ 
 
     /**
      * @ORM\Column(type="integer")
@@ -56,15 +56,34 @@ class Book
      */
     private $year;
 
-    /**
-     * @ORM\Column(type="float")
-     */
     private $score;
 
     /**
      * @ORM\Column(type="string")
      */
     private $coverImage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="book", orphanRemoval=true)
+     */
+    private $ratings;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->ratings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -83,7 +102,7 @@ class Book
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -187,6 +206,49 @@ class Book
     public function setCoverImage($coverImage): self
     {
         $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getBook() === $this) {
+                $rating->setBook(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

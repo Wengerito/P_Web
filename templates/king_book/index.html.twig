@@ -2,7 +2,7 @@
 
 {% extends "base.html.twig" %}
 
-{% block body %}
+{# {% block body %}
     <div class="row mb-4">
         <h1>Bienvenu sur KingBook</h1>
     </div>
@@ -24,4 +24,34 @@
     </div>       
 
 
+{% endblock %} #}
+{% block body %}
+<h1>Bienvenue</h1>
+<div class="row justify-content-center">
+{% set nbr = 0 %}
+    {% for book in book %}
+        {% set nbr = nbr + 1 %}
+        {% if nbr <= 3 %}
+        <div class="col-sm-4">
+        {% elseif nbr == 4 %}
+        <div class="row">
+        <div class="col-sm-6">
+        {% else %}
+        <div class="col-sm-6">
+        {% endif %}
+        <section class="lastBooks">
+            <div class="card border-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">{{book.category.name}}</div>
+                <div class="card-body">
+                    <img src={{book.coverImage}}>
+                    <h4 class="card-title">{{book.title}}</h4>
+                    <p class="card-text">{{book.author}}</p>
+                    <p class="card-text">{{book.editor}}</p>
+                    <a href="{{ path('book_show', {'id':book.id}) }}" class="card-link">Plus de détails</a>
+                </div>
+            </div>
+        </section>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}
