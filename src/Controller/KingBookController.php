@@ -67,9 +67,8 @@ class KingBookController extends AbstractController
             ->add('author', TextType::class, ['label' => 'Auteur'])
             ->add('editor', TextType::class, ['label' => 'Éditeur'])
             ->add('year', NumberType::class, ['label' => 'Année'])
-            ->add('score', NumberType::class, ['label' => 'Score'])
             ->add('coverImage', UrlType::class, ['label' => 'Couverture'])
-            ->add('save', SubmitType::class, ['label' => 'Create Book'])
+            ->add('save', SubmitType::class, ['label' => 'Ajouter livre'])
             ->getForm();
 
         $form->handleRequest($request);

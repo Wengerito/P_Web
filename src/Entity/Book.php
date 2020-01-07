@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Proxies\__CG__\App\Entity\Category;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
@@ -107,7 +106,7 @@ class Book
         return $this->category;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 

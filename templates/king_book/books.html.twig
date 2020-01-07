@@ -20,7 +20,7 @@
     </script>
     {% endblock %}
     {% for book in books %}
-    <div class="text">{{book.title}}</div>
+    <div class="row">{{book.title}}<a href="/book/{{book.id}}" style="text-decoration: none">Détails</a></div>
     {% endfor %}
 
 {% endblock %}
